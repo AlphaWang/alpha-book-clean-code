@@ -15,15 +15,16 @@
 Comments should say things that the code cannot say for itself.
 
 反例：
-```
+``` java
 i++; // increment i
 ```
 
-```
+``` java
 /**
 * @param sellRequest
 * @return
-* @throws ManagedComponentException */
+* @throws ManagedComponentException
+*/
 public SellResponse beginSellItem(SellRequest sellRequest) throws ManagedComponentException
 ```
 
