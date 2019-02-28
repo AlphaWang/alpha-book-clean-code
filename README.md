@@ -1,9 +1,6 @@
 Product Engineering Study: Clean Code
 ========
 
-## Study group information
-* https://wiki.coupang.net/display/CCQ/2019+1Q+-+Clean+Code
-
 ## Content
 
 * [1 Clean Code](01_clean_code/01_clean_code.md)
