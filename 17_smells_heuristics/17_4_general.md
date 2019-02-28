@@ -5,7 +5,7 @@
 ### G2: 明显的行为未被实现（Obvious Behavior Is Unimplemented）
 Following “The Principle of Least Surprise”, any function or class should implement the behaviors that another programmer could reasonably expect.
 
-```
+``` java 
 Day day = DayDate.StringToDay(String dayName);
 ```
 
@@ -28,7 +28,7 @@ DRY: Don't Repeat Yourself. 这是本书最重要的规则之一
 - 重复代码代表遗漏了抽象。
 
 ### G6: 在错误的抽象层级上的代码（Code at Wrong Level of Abstraction）
-```
+``` java
 public interface Stack {
   Object pop() throws EmptyException;
   void push(Object o) throws FullException; 
@@ -77,7 +77,7 @@ see Martin Fowler’s Refactoring.
 
 The methods of a class should be interested in the variables and functions of the class they belong to, and not the variables and functions of other classes.
 
-```
+``` java
 public class HourlyPayCalculator {
   public Money calculateWeeklyPay(HourlyEmployee e) {
     int tenthRate = e.getTenthRate().getPennies();
@@ -96,7 +96,7 @@ public class HourlyPayCalculator {
 
 
 但事无绝对，下面这个reportHours方法如果移到HourlyEmployee类中，就会违反SRP原则。
-```
+``` java
 public class HourlyEmployeeReport { 
   private HourlyEmployee employee ;
   public HourlyEmployeeReport(HourlyEmployee e) { 
@@ -119,7 +119,7 @@ public class HourlyEmployeeReport {
 - enum
 - ...
 
-```
+``` java
 public int calculateWeeklyPay(boolean overtime) { //Selector Argument
   int tenthRate = getTenthRate();
   int tenthsWorked = getTenthsWorked();
@@ -134,7 +134,7 @@ public int calculateWeeklyPay(boolean overtime) { //Selector Argument
 
 ### G16: 晦涩的意图（Obscured Intent）
 
-```
+``` java
 public int m_otCalc() { 
   return iThsWkd * iThsRte +
        (int) Math.round(0.5 * iThsRte * 
@@ -154,7 +154,7 @@ Question: PI常量应该放在Math类、Trigonometry类、还是Circle类？
 ### G18: 不恰当的静态方法（Inappropriate Static）
 
 恰当的静态方法：
-```
+``` java
 Math.max(double a, double b)
 
 // to avoid:
@@ -163,7 +163,7 @@ a.max(b);
 ```
 
 不恰当的静态方法：
-```
+``` java
 HourlyPayCalculator.calculatePay(employee, overtimeRate).
 ```
 原因：有理由希望这个函数是多态的。（OvertimeHourlyPayCalculator, StraightTimeHourlyPayCalculator）
@@ -174,7 +174,7 @@ HourlyPayCalculator.calculatePay(employee, overtimeRate).
 ### G19: 使用解释性变量（Use Explanatory Variables）
 让程序可读的有力方法之一就是将计算过程打散，用有意义的变量名存储中间值。
 
-```
+``` java
 Matcher match = headerPattern.matcher(line); 
 if(match.find()) {
   String key = match.group(1); //中间值
@@ -186,12 +186,12 @@ if(match.find()) {
 
 ### G20: 函数名称应该表达其行为（Function Names Should Say What They Do）
 反例：
-```
+``` java
 Date newDate = date.add(5);
 ```
 
 正例：
-```
+``` java
 Date newDate = date.addDaysTo(5);
 Date newDate = date.increaseByDays(5);
 ```
@@ -209,7 +209,7 @@ Logical Dependency:
 Physical Dependency:
 - it should explicitly ask that module for all the information it depends upon.
 
-```
+``` java
 public class HourlyReporter {
   private HourlyReportFormatter formatter; 
   private List<LineItem> page;
