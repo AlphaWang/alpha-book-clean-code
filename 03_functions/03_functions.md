@@ -1,5 +1,4 @@
 # 3 Functions
 
-- [PPT](Clean-Code-ch3_functions.pptx
-)
+- [PPT](Clean-Code-ch3_functions.pptx)
 
