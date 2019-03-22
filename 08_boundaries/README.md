@@ -113,7 +113,9 @@ Author's example:
     
 Emmm ... I think it's 
 
-### 
+### 8.6 Clean Boundaries
+
+Summary, 1. prevent explore third-party particulars 2. use Map and Adapter to convert from our perfect interface to the provides interfaces.
 
 
 
