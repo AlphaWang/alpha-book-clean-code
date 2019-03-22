@@ -62,8 +62,7 @@ Recommendation from Author
     If you use a boundary interface like Map, keep it inside the class, or close familyof  classes,  where  it  is  used.  
     Avoid  returning  it  from,  or  accepting  it  as  an  argument  to,public APIs.
     
-### 8.2 Exploring and Learning Boundaries
-### 8.3 Learning log4j
+### 8.2 Exploring and Learning Boundaries && 8.3 Learning log4j
 
 #### Recommendation: Writing test cases to learning the usage of third-party codes.
 
@@ -94,8 +93,8 @@ Finnally, third try will pass. But ... the code is too long ... so I will not pa
 
 ### 8.4 Learning Test are Better than Free
 
-#### 1 improve our understanding of the lib
-#### 2 could just run test case to verify any update of lib's new version on the functions we using now
+1 improve our understanding of the lib
+2 could just run test case to verify any update of lib's new version on the functions we using now
 
 I think NO.1 is nonsense, there are many ways to understanding the lib. But the NO.2 seems very awesome.
 
