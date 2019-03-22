@@ -44,6 +44,7 @@ So, if java.util.map's api changed, perhaps get() changed to getById(), we need 
 
 Good codes:
 
+```java
     public class Sensors {
         private Map sensors = new HashMap();
         
@@ -54,6 +55,7 @@ Good codes:
         ...
         
     }
+```    
     
 Recommendation from Author
     
