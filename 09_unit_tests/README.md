@@ -47,7 +47,10 @@ public void testGetPageHieratchyAsXml() {
 
 // good
 public void testGetPageHieratchyAsXml() {
-        
+    makePages("PageOne", "PageTwo", "PageThree");
+    
+    submitRequest("root", "type:pages");
+    
     assertResponseIsXML();
     assertResponseContains("<name>PageOne</name>", "<name>PageTwo</name>", "<name>PageThree</name>");
 }
@@ -87,7 +90,7 @@ public String getState() {
     return state;
 }
 ```
-测试代码不必遵循生产代码的规则，也不必考虑效率问题。
+测试代码不必遵循生产代码的规则(如例子中破坏了思维映射)，也不必考虑效率问题。
 
 ## 9.4 每个测试一个断言
 > 每个测试函数有且只有一个断言？
