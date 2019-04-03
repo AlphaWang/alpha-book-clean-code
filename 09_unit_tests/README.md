@@ -27,7 +27,7 @@ Unit test code: (对于新写的case)只允许写刚好能够导致失败的代�
 
 一个可读性的例子
 
-```
+``` java
 // bad
 public void testGetPageHieratchyAsXml() {
     crawler.addPage(root, PathParser.parse("PageOne"));
@@ -59,7 +59,7 @@ public void testGetPageHieratchyAsXml() {
 
 双重标准: 
 
-```
+``` java
 // bad
 public void turnOnLoTempAlarmAtThreshold() {
     hw.setTemp(WAY_TOO_COLD);
@@ -94,7 +94,7 @@ public String getState() {
 
 每个测试函数一个概念，保持断言数量的最小化
 
-```
+``` java
 // good
 public void testGetPageHierarchyAsXml() {
     givenPages("PageOne", "PageTwo", "PageThree");
