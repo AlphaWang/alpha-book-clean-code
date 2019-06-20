@@ -2,8 +2,10 @@
 
 ### G1: 一个源文件中存在多种语言（Multiple Languages in One Source File）
 
+
+
 ### G2: 明显的行为未被实现（Obvious Behavior Is Unimplemented）
-Following “The Principle of Least Surprise”, any function or class should implement the behaviors that another programmer could reasonably expect.
+Following `The Principle of Least Surprise`, any function or class should implement the behaviors that another programmer could reasonably expect.
 
 ``` java 
 Day day = DayDate.StringToDay(String dayName);
@@ -20,7 +22,7 @@ Don’t rely on your intuition.
 Look for every boundary condition and write a test for it.
 
 ### G4: 忽视安全（Overridden Safeties）
-Turning off certain compiler warnings (or all warnings!) may help you get the build to succeed, but at the risk of endless debugging sessions. 
+Turning off certain compiler warnings may help you get the build to succeed, but at the risk of endless debugging sessions. 
 
 ### G5: 重复（Duplication）
 
@@ -64,12 +66,17 @@ If you do something a certain way, do all similar things in the same way.
 
 ### G12: 混淆视听（Clutter）
 - 没有用到的变量；
+
 - 从不调用的函数；
-- 没有信息量的注释；
-All these things are clutter and should be removed. 
+
+- 没有信息量的注释；  
+
+  All these things are clutter and should be removed. 
 
 ### G13: 人为耦合（Artificial Coupling）
 不互相依赖的东西就不该耦合。 
+
+反例：把普通的enum声明在特殊类中。
 
 
 ### G14: 特性依恋 （Feature Envy）
@@ -114,7 +121,7 @@ public class HourlyEmployeeReport {
 
 ### G15: 选择算子参数（Selector Arguments）
 
-什么是selector arguments:用于选择函数行为的参数。
+什么是selector arguments：用于选择函数行为的参数。
 - boolean
 - enum
 - ...
@@ -143,12 +150,12 @@ public int m_otCalc() {
 }
 ```
 
-这个函数短小紧凑，但究竟是在做什么事情呢？
+这个函数看起来短小紧凑，但究竟是在做什么事情呢？
 
 ### G17: 位置错误的权责（Misplaced Responsibility）
 
 Question: PI常量应该放在Math类、Trigonometry类、还是Circle类？
-- Following “The Principle of Least Surprise”. Code should be placed where a reader would naturally expect it to be.
+- Following `The Principle of Least Surprise`. Code should be placed where a reader would naturally expect it to be.
 
 
 ### G18: 不恰当的静态方法（Inappropriate Static）
@@ -244,47 +251,230 @@ PAGE_SIZE应该是HourlyReportFormatter的职责； 此处HourlyReporter被假�
 - We can physicalize this dependency by creating a new method in `HourlyReportFormatter` named `getMaxPageSize()`. 
 - `HourlyReporter` will then call that function rather than using the `PAGE_SIZE` constant.
 
-### G23: 用多态替代 if-else 或switch-case（Prefer Polymorphism to If/Else or Switch/Case）
+### G23: 用多态替代 if-else 或 switch-case（Prefer Polymorphism to If/Else or Switch/Case）
 反例：
 CartSectionHeaderAssembler
 
 ### G24: 遵循标准约定（Follow Standard Conventions）
 
+建议参考阿里巴巴Java开发手册：https://github.com/alibaba/p3c
+
+
 
 ### G25: 用命名常量替代魔术数（Replace Magic Numbers with Named Constants）
+
+反例：
+
+- 86400
+
+正例：
+
+- int SECONDS_PER_DAY = 86400;
+
+问题：是不是所有数字都需要替换成常量？
+
+```java
+// 计算圆周长
+// 数字 2 是否需要定义一个常量？ --> NO
+double circumference = radius * Math.PI * 2;
+```
+
 
 
 ### G26: 准确（Be Precise）
 
+- 不要用`float`表示货币；
+- 如果所调用的方法可能返回null，就必须要做null检查；
+
+
 
 ### G27: 结构优于约定（Structure over Convention）
 
+switch/cases with nicely named enumerations are inferior to base classes with abstract methods.
 
 ### G28: 封装条件（Encapsulate Conditionals） 
+
+如果 if 或者 while 语句没有上下文，那就很难理解其判断逻辑了。
+
+反例
+
+```java
+if (timer.hasExpired() && !timer.isRecurrent())
+```
+
+正例
+
+```java
+if (shouldBeDeleted(timer))
+```
+
 
 
 ### G29: 避免否定性条件（Avoid Negative Conditionals）
 
+Negatives are just a bit harder to understand than positives.
+
+反例
+
+```java
+if (!buffer.shouldNotCompact())
+```
+
+正例
+
+```java
+if (buffer.shouldCompact())
+```
+
+
 
 ### G30: 函数只该做一件事（Functions Should Do One Thing）
 
+SRP原则。
 
 ### G31: 掩蔽时序耦合（Hidden Temporal Couplings）
+
+有时函数的执行次序很重要，这时就需要用某种机制（例如 bucket brigade）来确保其他程序员不能随意调整执行次序。
+
+反例
+
+```java
+public class MoogDiver { 
+  Gradient gradient; 
+  List<Spline> splines;
+  
+  public void dive(String reason) { 
+    saturateGradient(); 
+    reticulateSplines(); 
+    diveForMoog(reason);
+  }
+  ... 
+}
+```
+
+正例
+
+```java
+public class MoogDiver { 
+  Gradient gradient; 
+  List<Spline> splines;
+  
+  public void dive(String reason) {
+    Gradient gradient = saturateGradient(); 
+    List<Spline> splines = reticulateSplines(gradient); 
+    diveForMoog(splines, reason);
+  }
+  ... 
+}
+```
+
 
 
 ### G32: 别随意（Don’t Be Arbitrary）
 
+反例：
+
+滥用内部类。本应是一个顶级类，却随意定义在另一个类内部作为内部类。
 
 ### G33: 封装边界条件（Encapsulate Boundary Conditions）
+
+要把处理边界条件的代码集中到一处，而不是散落在代码中。
+
+反例：
+
+```java
+if(level + 1 < tags.length) {
+  parts = new Parse(body, tags, level + 1, offset + endTag);
+  body = null; 
+}
+```
+
+正例：
+
+```java
+int nextLevel = level + 1; 
+if(nextLevel < tags.length) {
+  parts = new Parse(body, tags, nextLevel, offset + endTag);
+  body = null; 
+}
+```
+
 
 
 ### G34: 函数应该只在一个抽象层级上（Functions Should Descend Only One Level of Abstraction）
 
+反例：
+
+```java
+public String render() throws Exception {
+  StringBuffer html = new StringBuffer("<hr"); 
+  if(size > 0)
+    html.append(" size=\"").append(size + 1).append("\""); 
+  html.append(">");
+  return html.toString(); 
+}
+```
+
+这个方法混杂了至少两个抽象层级：
+
+1. The first is the notion that a horizontal rule has a size. 
+2. The second is the syntax of the HR tag itself.
+
+正例：
+
+```java
+public String render() throws Exception {
+  HtmlTag hr = new HtmlTag("hr"); 
+  if (extraDashes > 0)
+    hr.addAttribute("size", hrSize(extraDashes)); 
+  return hr.html();
+}
+
+private String hrSize(int height) {
+  int hrSize = height + 1;
+  return String.format("%d", hrSize); 
+}
+```
+
+
 
 ### G35: 在较高层级放置可配置数据（Keep Configurable Data at High Levels）
+
+如果你有一个常量值表示默认值或者配置值，不要把它埋在底层的函数中。
+
+正例：
+
+```java
+public static void main(String[] args) throws Exception {
+  Arguments arguments = parseCommandLine(args);
+  ... 
+}
+
+public class Arguments {
+  public static final String DEFAULT_PATH = ".";
+  public static final String DEFAULT_ROOT = "FitNesseRoot"; 
+  public static final int DEFAULT_PORT = 80;
+  public static final int DEFAULT_VERSION_DAYS = 14;
+  ...
+}
+```
+
+
 
 
 ### G36: 避免传递浏览（Avoid Transitive Navigation）
 
+Law of Demeter.不要让模块了解太多其写作者的信息。
 
+反例：
+
+```java
+a.getB().getC().doSomething();
+```
+
+正例：
+
+```java
+myCollaborator.doSomething();
+```
 

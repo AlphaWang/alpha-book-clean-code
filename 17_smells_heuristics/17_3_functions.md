@@ -1,4 +1,4 @@
-## 17.3 函数
+## 17.3 函数（Functions）
 see [Chapter3 Functions](03_functions/03_functions.md)
 
 ### F1: 过多的参数（Too Many Arguments）
