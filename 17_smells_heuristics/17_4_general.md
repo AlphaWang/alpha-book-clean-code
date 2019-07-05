@@ -53,6 +53,12 @@ In general, base classes should know nothing about their derivatives.
 - 不会进入的if/switch条件；
 - 从不抛出异常的try-catch；
 
+
+
+Tips: find dead code by IntelliJ
+
+`Analyze` —> `Run Inspection by Name…` —> `Unused declaration`
+
 ### G10: 垂直分隔（Vertical Separation）
 垂直距离要短，
 - 变量和函数应该在靠近被使用的地方定义。
